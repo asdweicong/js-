@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        var makeSound = function( animal ){
+            animal.sound();
+        };
+        var Duck = function(){};
+        Duck.prototype.sound = function(){
+            console.log( 'duck' );
+        };
+        var Chicken = function(){};
+        Chicken.prototype.sound = function(){
+            console.log( 'chicken' );
+        };
+        var Dog = function(){};
+        Dog.prototype.sound = function(){
+            console.log( 'dog' );
+        };
+        makeSound( new Duck() );
+        makeSound( new Chicken() );
+        makeSound( new Dog() );
+
+
+
+        var googleMap = {
+            show: function(){
+                console.log( '谷歌' );
+            }
+        };
+        var baiduMap = {
+            show: function(){
+                console.log( '百度' );
+            }
+        };
+        var Map = {
+
+        };
+        var renderMap = function( map ){
+            if ( map.show instanceof Function ){//判断map 是否是一个函数
+                map.show();
+            }
+        };
+        renderMap( googleMap );
+        renderMap( baiduMap );
+        renderMap( Map );
+    </script>
+</head>
+<body>
+
+</body>
+</html>
