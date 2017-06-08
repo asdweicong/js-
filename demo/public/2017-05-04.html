@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    *{padding: 0;margin: 0;}
+    ul{
+        width: 300px;
+        height: 500px;
+        margin: auto;
+        background: #EFEFF4;
+        margin-top: 50px;
+        position: relative;
+    }
+    ul li{
+        background: green;
+        border-radius: 50%;
+        display: block;
+        list-style: none;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+    }
+</style>
+<body>
+<ul id="ul">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+
+</ul>
+</body>
+<script type="text/javascript" src="javascripts/jquery-1.11.0.js" ></script>
+<script type="text/javascript">
+    function RandomLi(){
+        var li = $("#ul li")
+        for(i=0;i<li.length;i++){
+            //随机生成宽高
+            var num = Math.floor(Math.random()*10+25)
+            //随机生成left 要少于ul的宽
+            var aLeft = Math.floor(Math.random()*270)
+            //随机生成top 要少于ul的高
+            var aTop  = Math.floor(Math.random()*450)
+            //alert(aLeft)
+            var asd = Math.floor(Math.random())
+            var asd2 = Math.floor(Math.random()*asd)
+            li.eq(i).css({
+                width:num+"px",
+                height:num+"px",
+                left:aLeft+asd+asd2+"px",
+                top :aTop+asd+asd2+"px",
+            })
+        }
+    }
+    RandomLi()
+</script>
+</html>

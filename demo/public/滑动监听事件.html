@@ -1,0 +1,42 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        .fixed{
+            position: fixed;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+<div style="height:200px;background-color:#EFE4B0;"></div>
+<div id="fixed" style="height:40px;width:100%;background-color:#7092BE;color:#fff;">这个div到达顶部时悬浮在顶部，不到顶部不悬浮</div>
+<div style="height:1000px;background-color:#C3C3C3;" class="aaa"></div>
+<div style="height:1000px;background-color:#fe96c9;" class="aaa"></div>
+<div style="height:1000px;background-color:#fff000;" class="aaa"></div>
+<div style="height:1000px;background-color:green;" class="aaa"></div>
+</body>
+<script type="text/javascript">
+    var fixedDom = document.getElementById('fixed');
+    document.addEventListener('scroll',winScroll,false);
+    var tabs = document.querySelectorAll('.aaa');
+    var tab1 = tabs[0].offsetTop;
+    var tab2 = tabs[1].offsetTop;
+    var tab3 = tabs[2].offsetTop;
+    var tab4 = tabs[3].offsetTop;
+    console.log(tab1,tab2,tab3,tab4);
+    function winScroll(e){
+        if(fixedDom.offsetTop < document.body.scrollTop){
+//            console.log(document.body.scrollTop)
+            fixedDom.classList.add("fixed");
+        };
+        if(fixedDom.offsetTop > document.body.scrollTop){
+            fixedDom.classList.remove("fixed");
+        };
+        if(document.body.scrollTop<209){
+            fixedDom.classList.remove("fixed");
+        }
+    }
+</script>
+</html>

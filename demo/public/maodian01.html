@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>锚点</title>
+    <style>
+        #A,#B,#C,#D{
+            position: relative;
+            top: -50px;
+        }
+        ul{
+            width:100%;
+            margin:10px 0 0 0;
+            padding: 0;
+        }
+        ul li{
+            width:25%;
+            text-align: center;
+            float: left;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<ul style='position:fixed;top: 0;'>
+    <li><a href="javascript:void(0);" onclick="naver('A')">锚点A</a></li>
+    <li><a href="javascript:void(0);" onclick="naver('B')">锚点B</a></li>
+    <li><a href="javascript:void(0);" onclick="naver('C')">锚点C</a></li>
+    <li><a href="javascript:void(0);" onclick="naver('D')">锚点D</a></li>
+</ul>
+<div style="height: 50px;width: 100%;"></div>
+<div id="A"></div>
+<div style="background-color: #f60; height: 400px;">
+    AAA
+</div>
+
+<div id="B"></div>
+<div style="background-color: #f06; height: 400px;">
+    BBB
+</div>
+
+<div id="C"></div>
+<div style="background-color: #60f; height: 400px;">
+    CCC
+</div>
+
+<div id="D"></div>
+<div style="background-color: #06f; height: 400px;">
+    DDD
+</div>
+<div style="background-color: #06f; height: 400px;" id="df0"></div>
+<script>
+//    设置锚点
+    function naver(v) {
+        var Obj_v =document.getElementById(v);
+        Obj_v.scrollIntoView();
+    }
+</script>
+</body>
+</html>

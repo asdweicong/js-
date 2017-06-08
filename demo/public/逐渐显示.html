@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>逐渐显示</title>
+    <script type="text/javascript" src="javascripts/jquery-1.11.0.js"></script>
+    <style>
+        #aa{
+            word-break:break-all; /*支持IE，chrome，FF不支持*/
+            word-wrap:break-word;/*支持IE，chrome，FF*/
+            width: 100%;
+            overflow: hidden;
+            clear: both;
+        }
+        #w{
+            display:none ;
+        }
+    </style>
+</head>
+<body>
+    <pre id="aa"></pre>
+    <div id="w">
+谈及航母的改建工程，当时为了解决现场建设困难，他们做了大量的工作;
+一是统筹好所有的工作项目，精确安排每人每天的任务，最忙的时候精确到每个小时的具体任务;
+二是提高所有的施工质量，通过保证质量，在更大程度上节约时间；三是加班加点。“通过这三个方面的手段，才把时间给抢回来。
+”王治国回忆，“因为我们在北方，那一年遇上了五十年不遇的严寒。前面的很多土建工作，受温度影响很大，耽误了时间。为了抢进度，最后我们把时间抢回来了。”
+    </div>
+    <script language="javascript">
+        var index=0;
+        var width = window.innerWidth;
+        console.log(width);
+        var a01,a02
+        var word=document.getElementById("w").innerHTML;
+        function type(){
+            a01 = document.getElementById("aa").innerText;
+            a02 = document.getElementById("w").innerText;
+            document.getElementById("aa").innerText = word.substring(0,index++);
+            if(index == word.length){
+                clearTimeout(i);
+            }
+        }
+        var i = setInterval(type, 50);
+    </script>
+</body>
+</html>

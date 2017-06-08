@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>锚点</title>
+    <script type="text/javascript" src="javascripts/jquery-1.11.0.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            padding-top: 40px;
+        }
+        .maodian_nav{
+            width:100%;
+            background-color: #a54fff;
+            height: 40px;
+            line-height: 40px;
+        }
+        .maodian_nav div{
+            text-align: center;
+            width:25%;
+            float: left;
+        }
+        .maodian{
+            text-decoration: none;
+        }
+        .maodian_on{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div style='position:fixed;top: 0;'  class="maodian_nav">
+    <div><a href="javascript:void(0);" onclick="naver('A')" class="maodian_on maodian">锚点A</a></div>
+    <div><a href="javascript:void(0);" onclick="naver('B')" class="maodian">锚点B</a></div>
+    <div><a href="javascript:void(0);" onclick="naver('C')" class="maodian">锚点C</a></div>
+    <div><a href="javascript:void(0);" onclick="naver('D')" class="maodian">锚点D</a></div>
+</div>
+<div style="background-color: #f60; height: 400px;" id="A">
+    AAA
+</div>
+<div style="background-color: #f06; height: 400px;" id="B">
+    BBB
+</div>
+<div style="background-color: #60f; height: 400px;" id="C">
+    CCC
+</div>
+<div style="background-color: #06f; height: 400px;" id="D">
+    DDD
+</div>
+<div style="background-color: #06f; height: 400px;" id="df0">
+    DDD
+</div>
+<script>
+    //设置锚点
+    var maodian_long = document.querySelectorAll(".maodian");
+    //点击锚点移动
+    function naver(id){
+        var obj = document.getElementById(id);
+        var oPos = obj.offsetTop;
+        console.log(oPos);
+        $('html,body').animate({
+                scrollTop: oPos-40
+            },
+            1000);
+    }
+    //设置锚点位置高亮
+    var text_color = function (v) {
+        for(var i = 0; i < maodian_long.length; i++ ){
+            maodian_long[i].className = "maodian";
+        }
+        maodian_long[v].className = "maodian maodian_on"
+    };
+    //获取锚点的位置
+    var assignment = function () {
+        text01 = document.getElementById("A").offsetTop-40;
+        text02 = document.getElementById("B").offsetTop-40;
+        text03 = document.getElementById("C").offsetTop-40;
+        text04 = document.getElementById("D").offsetTop-40;
+        console.log(text01,text02,text03,text04)
+    };
+    //监听锚点的移动做判断
+    var Monitor = function (show01,show02) {
+        show01();
+        document.addEventListener('scroll',winScroll,false);
+        function winScroll(e){
+            moveTop= document.body.scrollTop;
+            if(text02 >moveTop && moveTop >= text01){
+                console.log(text01,moveTop);
+                show02(0)
+            }
+            if(text03 >moveTop && moveTop >= text02){
+                console.log(text02,moveTop);
+                show02(1)
+            }
+            if(text04 >moveTop && moveTop >= text03){
+                console.log(text03,moveTop);
+                show02(2)
+            }
+            if(moveTop >= text04){
+                console.log(text04,moveTop);
+                show02(3)
+            }
+        }
+    };
+    //执行锚点的监听
+    Monitor(assignment,text_color)
+</script>
+</body>
+</html>
