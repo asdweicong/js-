@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
-        var plane = function () {
+        var plane = {
             fire:function () {
-                console.log('发射普通子弹')
+                console.log('发射子弹')
             }
         };
         var missileDecorator = function () {
@@ -14,7 +14,19 @@
         };
         var atomDerator = function () {
             console.log('发射原子弹')
-        }
+        };
+
+        var fire1 = plane.fire;
+        plane.fire = function () {
+            fire1();
+            missileDecorator();
+        };
+        var fire2 = plane.fire;
+        plane.fire = function () {
+            fire2();
+            atomDerator();
+        };
+        plane.fire();
     </script>
 </head>
 <body>
