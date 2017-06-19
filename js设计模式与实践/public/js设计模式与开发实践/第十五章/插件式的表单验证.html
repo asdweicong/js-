@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>插件式的表单验证</title>
+</head>
+<body>
+    用户名：<input type="text" id="username" onchange="usernamechange(this.value)">
+    密码：<input type="text" id="password" onchange="passwordchagne(this.value)">
+    <input id="submitBtn" type="button" value="提交" />
+</body>
+</html>
+<script>
+    var usernamechange = function (v) {
+        console.log(v)
+    };
+    var passwordchagne = function (v) {
+        console.log(v)
+    };
+    ///原始代码
+//    var username = document.getElementById( 'username' ),
+//        password = document.getElementById( 'password' ),
+//        submitBtn = document.getElementById( 'submitBtn' );
+//    var formSubmit = function(){
+//        if ( username.value === '' ){
+//            return alert ( '用户名不能为空' );
+//        }
+//        if ( password.value === '' ){
+//            return alert ( '密码不能为空' );
+//        }
+//        var param = {
+//            username: username.value,
+//            password: password.value
+//        };
+//    };
+//    submitBtn.onclick = function(){
+//        formSubmit();
+//    }
+
+    ////////////////////////////////////////////////////////////////
+    //优化代码
+//    var validata = function(){
+//        if ( username.value === '' ){
+//            alert ( '用户名不能为空' );
+//            return false;
+//        }
+//        if ( password.value === '' ){
+//            alert ( '密码不能为空' );
+//            return false;
+//        }
+//    }
+//    var formSubmit = function(){
+//        if ( validata() === false ){ //检验未通过
+//            return;
+//        }
+//        var param = {
+//            username: username.value,
+//            password: password.value
+//        };
+//        console.log(param)
+//    };
+//    submitBtn.onclick = function(){
+//        formSubmit();
+//    };
+
+    ///////////////////////////////////////////////////////////////////
+    //进一步的优化
+    Function.prototype.before = function( beforefn ){
+        var __self = this;
+        return function(){
+            if ( beforefn.apply( this, arguments ) === false ){
+                //  检验未通过
+                return;
+            }
+            return __self.apply( this, arguments );
+        }
+    };
+    var validata = function() {
+        if (username.value === '') {
+            alert('用户名不能为空');
+            return false;
+        }
+        if (password.value === '') {
+            alert('密码不能为空');
+            return false;
+        }
+    };
+    var formSubmit = function(){
+        var param = {
+            username: username.value,
+            password: password.value
+        };
+        console.log(param)
+    };
+    formSubmit = formSubmit.before( validata );
+    submitBtn.onclick = function(){
+        formSubmit();
+    }
+</script>
