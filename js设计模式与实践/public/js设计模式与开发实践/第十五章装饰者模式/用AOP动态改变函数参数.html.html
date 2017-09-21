@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用AOP动态改变函数的参数</title>
+    <script>
+        //AOP模式
+        /***
+         *Function.prototype.after 函数之后执行或添加
+         * */
+        Function.prototype.after = function (afterfn) {
+            var __self = this;
+            return function () {
+                var set = __self.apply(this, arguments);
+                afterfn.apply(this, arguments);
+                return set;
+            }
+        };
+        /***
+         *Function.prototype.before 函数之前执行或添加
+         * */
+        Function.prototype.before = function (beforefn) {
+            var __self = this;
+            return function () {
+                beforefn.apply(this, arguments);
+                return __self.apply(this, arguments)
+            }
+        };
+        var func = function (param) {
+            console.log(param); // 输出 {a: "a", b: "b"}
+        };
+        func = func.after(function (param) {
+            param.b = 'b';
+        });
+        func = func.before(function (param) {
+            param.c = "c"
+        });
+        func({a: 'a'});
+
+        var ajax = function (type, url, param) {
+            console.log(param); // 发送请求代码省略
+        };
+        var getToken = function (callback) {
+            if(callback){
+                callback()
+            }
+            return 'Token';
+        };
+        ajax = ajax.before(function (type, url, param) {
+            param.Token = getToken(function () {
+                param.aaa = "aaa"
+            });
+        });
+        ajax('get', 'http:// xxx.com/userinfo', {name: 'sven'});
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button tag="login" id="button">点击打开登录浮窗</button>
+<script>
+
+    //
+    <!--region 一般情况-->
+    //        var showLogin = function(){
+    //            console.log( '打开登录浮窗');
+    //            log( this.getAttribute( 'tag' ) );
+    //        };
+    //        var log = function( tag ){
+    //            console.log( '上报标签为: ' + tag );
+    //            // (new Image).src = 'http:// xxx.com/report?tag=' + tag; // 真正上报省lue
+    //        };
+    //        document.getElementById( 'button' ).onclick = showLogin;
+    //
+    <!--endregion-->
+
+
+    //AOP模式
+    /***
+     *Function.prototype.after 函数之后执行或添加
+     * */
+    Function.prototype.after = function (afterfn){
+        var __self = this;
+        return function () {
+            var set = __self.apply(this,arguments);
+            afterfn.apply(this,arguments);
+            return set
+        }
+    };
+    /***
+     *Function.prototype.before 函数之前执行或添加
+     * */
+    Function.prototype.before = function (beforefn){
+        var __self = this;
+        return function () {
+            beforefn.apply(this,arguments);
+            return __self.apply(this, arguments)
+        }
+    };
+    var showLogin = function () {
+        console.log('打开登录浮窗')
+    };
+    var log = function () {
+        console.log('上报标签为: ' + this.getAttribute('tag'));
+    };
+    showLogin = showLogin.after(log); // 打开登录浮窗后上报数据
+    //执行点击事件
+    document.getElementById('button').onclick = showLogin;
+</script>
+</body>
+</html>
