@@ -11,9 +11,9 @@
         Function.prototype.after = function (afterfn) {
             var __self = this;
             return function () {
-                var set = __self.apply(this, arguments);
-                afterfn.apply(this, arguments);
-                return set;
+                var set = __self.apply(this, arguments);//把原本内容添加这个中介里面
+                afterfn.apply(this, arguments);//把需要添加的内容添加这个中介里面
+                return set;//然后返回这个中介
             }
         };
         /***
@@ -22,8 +22,8 @@
         Function.prototype.before = function (beforefn) {
             var __self = this;
             return function () {
-                beforefn.apply(this, arguments);
-                return __self.apply(this, arguments)
+                beforefn.apply(this, arguments);//把需要添加的内容添加这个中介里面
+                return __self.apply(this, arguments);//把原本内容添加到这个中介里面，然后返回这个中介
             }
         };
         var func = function (param) {

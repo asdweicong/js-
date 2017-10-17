@@ -65,24 +65,27 @@
 
     ///////////////////////////////////////////////////////////////////
     //进一步的优化
-    Function.prototype.before = function( beforefn ){
+    Function.prototype.before = function (beforefn) {
         var __self = this;
-        return function(){
-            if ( beforefn.apply( this, arguments ) === false ){
-                //  检验未通过
+        return function () {
+            if(beforefn.apply(this,arguments) == false){
                 return;
+            }else{
+                return __self.apply(this,arguments)
             }
-            return __self.apply( this, arguments );
         }
     };
-    var validata = function() {
+    var validata = function(callback) {
         if (username.value === '') {
             alert('用户名不能为空');
             return false;
-        }
-        if (password.value === '') {
+        }else if (password.value === '') {
             alert('密码不能为空');
             return false;
+        }else{
+            if(callback){
+                callback()
+            }
         }
     };
     var formSubmit = function(){
@@ -92,8 +95,11 @@
         };
         console.log(param)
     };
-    formSubmit = formSubmit.before( validata );
+//    formSubmit = formSubmit.before( validata );
+
     submitBtn.onclick = function(){
-        formSubmit();
+        validata(function () {
+            formSubmit()
+        });
     }
 </script>
